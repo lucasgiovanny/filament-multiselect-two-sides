@@ -57,6 +57,8 @@ MultiselectTwoSides::make('roles')
 
 ### Enabling the search
 
+By default, the search is disabled. To enable it, use the `enableSearch` method.
+
 ```php
 MultiselectTwoSides::make('roles')
     ->options([
@@ -64,7 +66,19 @@ MultiselectTwoSides::make('roles')
         'manager' => 'Manager',
         'user'    => 'User',
     ])
-    ->searchable(),
+    ->enableSearch(),
+```
+
+### Setting the default selected options
+
+```php
+MultiselectTwoSides::make('roles')
+    ->options([
+        'admin'   => 'Admin',
+        'manager' => 'Manager',
+        'user'    => 'User',
+    ])
+    ->default(['admin', 'manager']),
 ```
 
 ## Changelog

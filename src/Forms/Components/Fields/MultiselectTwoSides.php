@@ -12,6 +12,8 @@ class MultiselectTwoSides extends Select
 
     public ?string $selectedLabel;
 
+    public bool $searchable = false;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,5 +54,17 @@ class MultiselectTwoSides extends Select
     public function selectedLabel(string $label): self
     {
         return $this->setSelectedLabel($label);
+    }
+
+    public function isSearchable(): bool
+    {
+        return $this->searchable;
+    }
+
+    public function enableSearch(): self
+    {
+        $this->searchable = true;
+
+        return $this;
     }
 }

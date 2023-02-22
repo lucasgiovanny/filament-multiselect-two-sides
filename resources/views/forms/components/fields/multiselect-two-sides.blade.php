@@ -17,6 +17,9 @@
         options: @js($getOptionsForJs()),
         selectedOptions: [],
         availableOptions: @js($getOptionsForJs()),
+        init(){
+            this.selectedOptions = this.state;
+        },
         searchAvailableOptions(value = null){
             if(!value){
                 this.availableOptions = this.options;
@@ -40,7 +43,7 @@
             this.selectedOptions = this.state;
 
             const searchSelectedInput = document.querySelector('#ms_input-search-selected')
-            if(searchSelectedInput.value){
+            if(searchSelectedInput?.value){
                 this.searchSelectedOptions(searchSelectedInput.value)
             }
         },
@@ -49,7 +52,7 @@
             this.selectedOptions = this.state;
 
             const searchSelectedInput = document.querySelector('#ms_input-search-selectable')
-            if(searchSelectedInput.value){
+            if(searchSelectedInput?.value){
                 this.searchSelectedOptions(searchSelectedInput.value)
             }
         },
@@ -68,10 +71,20 @@
             this.selectedOptions = this.state;
         },
         clearInputs(){
-            document.querySelector('#ms_input-search-selectable').value = '';
-            document.querySelector('#ms_input-search-selected').value = '';
+            const inputSelectable = document.querySelector('#ms_input-search-selectable')
+
+            if(inputSelectable){
+                inputSelectable.value = '';
+            }
+
+            const inputSelected =  document.querySelector('#ms_input-search-selected');
+            if(inputSelected){
+                inputSelected.value = '';
+            }
         }
-    }">
+    }"
+    x-init="init"
+    >
 
         {{-- Selectable Options --}}
         <div class="flex-1">
