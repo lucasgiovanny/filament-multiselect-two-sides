@@ -1,6 +1,6 @@
 {
     "name": "lucasgiovanny/filament-multiselect-two-sides",
-    "description": "This is my package filament-multiselect-two-sides",
+    "description": "This package is a Filament package that allows you to create a multiselect with two sides.",
     "keywords": [
         "lucasgiovanny",
         "laravel",
