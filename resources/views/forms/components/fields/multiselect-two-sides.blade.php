@@ -11,23 +11,23 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-
-
-
     <div class="flex w-full transition duration-75 text-sm"
     x-data="{
         state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $getStatePath() . '\')') }},
         options: @js($getOptionsForJs()),
         selectedOptions: [],
         availableOptions: @js($getOptionsForJs()),
-        searchAvailableOptions(value){
+        init(){
+            this.selectedOptions = this.state;
+        },
+        searchAvailableOptions(value = null){
             if(!value){
                 this.availableOptions = this.options;
                 return;
             }
             this.availableOptions = this.options.filter(opt => opt.label.toLowerCase().includes(value))
         },
-        searchSelectedOptions(value){
+        searchSelectedOptions(value = null){
             if(!value){
                 this.selectedOptions = this.state;
                 return;
@@ -43,34 +43,48 @@
             this.selectedOptions = this.state;
 
             const searchSelectedInput = document.querySelector('#ms_input-search-selected')
-            if(searchSelectedInput.value){
+            if(searchSelectedInput?.value){
                 this.searchSelectedOptions(searchSelectedInput.value)
             }
         },
         unselectOption(value){
-            this.state.splice(this.state.indexOf(value), 1);
+            this.state = this.state.filter((opt) => opt !== value);
             this.selectedOptions = this.state;
 
             const searchSelectedInput = document.querySelector('#ms_input-search-selectable')
-            if(searchSelectedInput.value){
+            if(searchSelectedInput?.value){
                 this.searchSelectedOptions(searchSelectedInput.value)
             }
         },
         unselectAll(){
             this.clearInputs();
+            this.searchAvailableOptions();
+            this.selectOption();
             this.state = [];
             this.selectedOptions = this.state;
         },
         selectAll(){
             this.clearInputs();
+            this.searchAvailableOptions();
+            this.selectOption();
             this.state = this.options.map(opt=> opt.value);
             this.selectedOptions = this.state;
         },
         clearInputs(){
-            document.querySelector('#ms_input-search-selectable').value = '';
-            document.querySelector('#ms_input-search-selected').value = '';
+            const inputSelectable = document.querySelector('#ms_input-search-selectable')
+
+            if(inputSelectable){
+                inputSelectable.value = '';
+            }
+
+            const inputSelected =  document.querySelector('#ms_input-search-selected');
+            if(inputSelected){
+                inputSelected.value = '';
+            }
         }
-    }">
+    }"
+    x-init="init"
+    >
 
         {{-- Selectable Options --}}
         <div class="flex-1">
@@ -126,7 +140,7 @@
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
                             x-text="options.find(opt=>opt.value === option).label"
-                            @click="unselectOption(option.value)"
+                            @click="unselectOption(option)"
                         />
                     </template>
                 </ul>
