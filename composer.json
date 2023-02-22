@@ -13,13 +13,18 @@
             "name": "Lucas Giovanny",
             "email": "lucas@vezoa.com",
             "role": "Developer"
+        },
+        {
+            "name": "Leo França",
+            "email": "leoarkiteto@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "filament/filament": "^2.0",
         "spatie/laravel-package-tools": "^1.13.5",
-        "illuminate/contracts": "^9.0"
+        "illuminate/contracts": "^9.0|^10.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
