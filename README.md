@@ -67,8 +67,6 @@ MultiselectTwoSides::make('roles')
     ->searchable(),
 ```
 
-This package extends the default Select from Filament, so you can use all the methods from the Select component.
-
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
