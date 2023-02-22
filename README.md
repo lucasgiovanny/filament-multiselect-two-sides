@@ -1,13 +1,11 @@
-# This is my package filament-multiselect-two-sides
+# Filament Multiselect Two Sides
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lucasgiovanny/filament-multiselect-two-sides.svg?style=flat-square)](https://packagist.org/packages/lucasgiovanny/filament-multiselect-two-sides)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/lucasgiovanny/filament-multiselect-two-sides/run-tests?label=tests)](https://github.com/lucasgiovanny/filament-multiselect-two-sides/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/lucasgiovanny/filament-multiselect-two-sides/Check%20&%20fix%20styling?label=code%20style)](https://github.com/lucasgiovanny/filament-multiselect-two-sides/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/lucasgiovanny/filament-multiselect-two-sides.svg?style=flat-square)](https://packagist.org/packages/lucasgiovanny/filament-multiselect-two-sides)
 
 
+This package is a Filament package that allows you to create a multiselect with two sides.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
 ## Installation
 
@@ -17,44 +15,55 @@ You can install the package via composer:
 composer require lucasgiovanny/filament-multiselect-two-sides
 ```
 
-You can publish and run the migrations with:
+Optionally, you can publish the translations:
 
 ```bash
-php artisan vendor:publish --tag="filament-multiselect-two-sides-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="filament-multiselect-two-sides-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-multiselect-two-sides-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+php artisan vendor:publish --tag="filament-multiselect-two-sides-translations"
 ```
 
 ## Usage
 
 ```php
-$filament-multiselect-two-sides = new LucasGiovanny\FilamentMultiselectTwoSides();
-echo $filament-multiselect-two-sides->echoPhrase('Hello, LucasGiovanny!');
+use LucasGiovanny\FilamentMultiselectTwoSides\Forms\Components\Fields\MultiselectTwoSides;
+
+return $form
+    ->schema([
+        MultiselectTwoSides::make('roles')
+            ->options([
+                'admin'   => 'Admin',
+                'manager' => 'Manager',
+                'user'    => 'User',
+            ]),
+    ]);
+
 ```
 
-## Testing
+### Setting labels
 
-```bash
-composer test
+```php
+MultiselectTwoSides::make('roles')
+    ->options([
+        'admin'   => 'Admin',
+        'manager' => 'Manager',
+        'user'    => 'User',
+    ])
+    ->selectableLabel('Available Roles')
+    ->selectedLabel('Selected Roles'),
 ```
+
+### Disabling the search
+
+```php
+MultiselectTwoSides::make('roles')
+    ->options([
+        'admin'   => 'Admin',
+        'manager' => 'Manager',
+        'user'    => 'User',
+    ])
+    ->disableSearch(),
+```
+
+This package extends the default Select from Filament, so you can use all the methods from the Select component.
 
 ## Changelog
 
@@ -71,6 +80,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Lucas Giovanny](https://github.com/lucasgiovanny)
+- [Léo França](https://github.com/leoarkiteto)
 - [All Contributors](../../contributors)
 
 ## License
