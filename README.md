@@ -6,7 +6,7 @@
 
 This package is a Filament package that allows you to create a multiselect with two sides.
 
-![Example of Filament Multiselector Two Sides](example.png)
+![Example of Filament Multiselector Two Sides](animate.gif)
 
 
 ## Installation
