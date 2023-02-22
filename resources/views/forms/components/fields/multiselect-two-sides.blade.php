@@ -76,7 +76,7 @@
         <div class="flex-1">
             <p class="bg-gray-300 text-center w-full py-2 rounded-t-lg dark:bg-gray-600">{{$getSelectableLabel()}}</p>
             <div class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
-                @if($hasSearch())
+                @if($isSearchable())
                     <input
                             id="ms_input-search-selectable"
                             placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
@@ -113,7 +113,7 @@
         <div class="flex-1">
             <p class="bg-gray-300 text-center w-full py-2 rounded-t-lg dark:bg-gray-600">{{$getSelectedLabel()}}</p>
             <div class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
-                @if($hasSearch())
+                @if($isSearchable())
                     <input
                             id="ms_input-search-selected"
                             placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.placeholder')}}"

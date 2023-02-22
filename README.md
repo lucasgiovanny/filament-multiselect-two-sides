@@ -55,7 +55,7 @@ MultiselectTwoSides::make('roles')
     ->selectedLabel('Selected Roles'),
 ```
 
-### Disabling the search
+### Enabling the search
 
 ```php
 MultiselectTwoSides::make('roles')
@@ -64,7 +64,7 @@ MultiselectTwoSides::make('roles')
         'manager' => 'Manager',
         'user'    => 'User',
     ])
-    ->disableSearch(),
+    ->searchable(),
 ```
 
 This package extends the default Select from Filament, so you can use all the methods from the Select component.
