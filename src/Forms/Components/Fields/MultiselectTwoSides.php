@@ -20,7 +20,7 @@ class MultiselectTwoSides extends Select
         $this->setSelectedLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.label'));
     }
 
-    public function setSelectableLabel(string $label): self
+    protected function setSelectableLabel(string $label): self
     {
         $this->selectableLabel = $label;
 
@@ -32,7 +32,7 @@ class MultiselectTwoSides extends Select
         return $this->selectableLabel;
     }
 
-    public function setSelectedLabel(string $label): self
+    protected function setSelectedLabel(string $label): self
     {
         $this->selectedLabel = $label;
 
@@ -42,5 +42,15 @@ class MultiselectTwoSides extends Select
     public function getSelectedLabel(): string
     {
         return $this->selectedLabel;
+    }
+
+    public function selectableLabel(string $label): self
+    {
+        return $this->setSelectableLabel($label);
+    }
+
+    public function selectedLabel(string $label): self
+    {
+        return $this->setSelectedLabel($label);
     }
 }
