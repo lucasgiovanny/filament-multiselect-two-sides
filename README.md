@@ -6,6 +6,8 @@
 
 This package is a Filament package that allows you to create a multiselect with two sides.
 
+![Example of Filament Multiselector Two Sides](example.png)
+
 
 ## Installation
 
@@ -43,9 +45,11 @@ return $form
 ```php
 MultiselectTwoSides::make('roles')
     ->options([
+        
         'admin'   => 'Admin',
         'manager' => 'Manager',
         'user'    => 'User',
+    ]
     ])
     ->selectableLabel('Available Roles')
     ->selectedLabel('Selected Roles'),
