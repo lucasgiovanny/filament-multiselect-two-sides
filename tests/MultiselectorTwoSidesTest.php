@@ -10,7 +10,7 @@ it('can enable search', function () {
         ->toBeTrue();
 });
 
-it('can set selectable lable', function () {
+it('can set selectable label', function () {
     $newLabel = 'New label';
     $field = MultiselectTwoSides::make('multi-select')
                 ->selectableLabel($newLabel);
@@ -19,7 +19,7 @@ it('can set selectable lable', function () {
         ->toBe($newLabel);
 });
 
-it('can set selected lable', function () {
+it('can set selected label', function () {
     $newLabel = 'New label';
     $field = MultiselectTwoSides::make('multi-select')
                 ->selectedLabel($newLabel);
