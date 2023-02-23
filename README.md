@@ -4,10 +4,14 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/lucasgiovanny/filament-multiselect-two-sides.svg?style=flat-square)](https://packagist.org/packages/lucasgiovanny/filament-multiselect-two-sides)
 
 
-This package is a Filament package that allows you to create a multiselect with two sides.
+This package is a Filament plugin that allows you to create a multiselect with 
+two sides.
 
-![Example of Filament Multiselector Two Sides](animate.gif)
+![Filament Multiselector Two Sides](multiselect.png)
 
+
+### Example
+![Example of plugin](animate.gif)
 
 ## Installation
 
