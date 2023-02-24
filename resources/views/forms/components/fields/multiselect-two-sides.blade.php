@@ -11,101 +11,52 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div class="flex w-full transition duration-75 text-sm"
-    x-data="{
-        state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $getStatePath() . '\')') }},
-        options: @js($getOptionsForJs()),
-        selectedOptions: [],
-        availableOptions: @js($getOptionsForJs()),
-        init(){
-            this.selectedOptions = this.state;
-        },
-        searchAvailableOptions(value = null){
-            if(!value){
-                this.availableOptions = this.options;
-                return;
+    <div
+        class="flex w-full transition duration-75 text-sm"
+        x-data="{
+            options: @js($getOptionsForJs()),
+            init(){
+                let selectableOptionsSearchInput = document.getElementById('ms-two-sides_selectableOptionsSearchInput')
+                let selectedOptionsSearchInput = document.getElementById('ms-two-sides_selectedOptionsSearchInput')
+                if(selectableOptionsSearchInput && selectedOptionsSearchInput){
+                    selectableOptionsSearchInput.value = ''
+                    selectedOptionsSearchInput.value = ''
+                }
+            },
+            searchSelectedOptions(elementID, value){
+                let liList = document.querySelectorAll(`#${elementID} li`)
+                liList.forEach(li => {
+                    if(li.innerHTML.toLowerCase().includes(value.toLowerCase())){
+                        li.style.display = 'block'
+                    }else{
+                        li.style.display = 'none'
+                    }
+                })
             }
-            this.availableOptions = this.options.filter(opt => opt.label.toLowerCase().includes(value))
-        },
-        searchSelectedOptions(value = null){
-            if(!value){
-                this.selectedOptions = this.state;
-                return;
-            }
-
-            this.selectedOptions = this.options.filter(opt=>this.state.includes(opt.value))
-                .filter(opt => opt.label.toLowerCase().includes(value))
-                .map(opt => opt.value)
-        },
-        selectOption(value){
-            this.state.push(value);
-            this.state = this.state.sort((a,b)=>this.options.indexOf(this.options.find(opt=>opt.value === a)) - this.options.indexOf(this.options.find(opt=>opt.value === b)));
-            this.selectedOptions = this.state;
-
-            const searchSelectedInput = document.querySelector('#ms_input-search-selected')
-            if(searchSelectedInput?.value){
-                this.searchSelectedOptions(searchSelectedInput.value)
-            }
-        },
-        unselectOption(value){
-            this.state = this.state.filter((opt) => opt !== value);
-            this.selectedOptions = this.state;
-
-            const searchSelectedInput = document.querySelector('#ms_input-search-selectable')
-            if(searchSelectedInput?.value){
-                this.searchSelectedOptions(searchSelectedInput.value)
-            }
-        },
-        unselectAll(){
-            this.clearInputs();
-            this.searchAvailableOptions();
-            this.selectOption();
-            this.state = [];
-            this.selectedOptions = this.state;
-        },
-        selectAll(){
-            this.clearInputs();
-            this.searchAvailableOptions();
-            this.selectOption();
-            this.state = this.options.map(opt=> opt.value);
-            this.selectedOptions = this.state;
-        },
-        clearInputs(){
-            const inputSelectable = document.querySelector('#ms_input-search-selectable')
-
-            if(inputSelectable){
-                inputSelectable.value = '';
-            }
-
-            const inputSelected =  document.querySelector('#ms_input-search-selected');
-            if(inputSelected){
-                inputSelected.value = '';
-            }
-        }
-    }"
-    x-init="init"
+        }"
     >
-
         {{-- Selectable Options --}}
         <div class="flex-1">
             <p class="bg-gray-300 text-center w-full py-2 rounded-t-lg dark:bg-gray-600">{{$getSelectableLabel()}}</p>
-            <div class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+            <div
+                class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
                 @if($isSearchable())
                     <input
-                            id="ms_input-search-selectable"
-                            placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
-                            class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
-                            @keyup="searchAvailableOptions($event.target.value)"
+                        id="ms-two-sides_selectableOptionsSearchInput"
+                        placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
+                        class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
+                        @keyup="searchSelectedOptions('ms-two-sides_selectableOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto">
-                    <template x-for="option in availableOptions.filter(opt=>!state.includes(opt.value))">
+                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectableOptions">
+                    @foreach($getSelectableOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
-                            x-text="option.label"
-                            @click="selectOption(option.value)"
-                        />
-                    </template>
+                            wire:click="dispatchFormEvent('ms-two-sides::selectOption', '{{ $getStatePath() }}', '{{ $value }}')"
+                        >
+                            {{$label}}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -113,36 +64,41 @@
         {{-- Arrow Actions --}}
         <div class="justify-center flex flex-col px-2 space-y-2 translate-y-4">
             <p
-               @click="selectAll"
-               class="cursor-pointer p-1 hover:bg-primary-500 group"
+                wire:click="dispatchFormEvent('ms-two-sides::selectAllOptions')"
+                class="cursor-pointer p-1 hover:bg-primary-500 group"
             >
-                <x-heroicon-o-chevron-double-right class="w-5 h-5 text-primary-500 group-hover:text-white" />
+                <x-heroicon-o-chevron-double-right class="w-5 h-5 text-primary-500 group-hover:text-white"/>
             </p>
-            <p @click="unselectAll" class="cursor-pointer p-1 hover:bg-primary-500 group">
-                <x-heroicon-o-chevron-double-left class="w-5 h-5 text-primary-500 group-hover:text-white" />
+            <p
+                wire:click="dispatchFormEvent('ms-two-sides::unselectAllOptions')"
+                class="cursor-pointer p-1 hover:bg-primary-500 group"
+            >
+                <x-heroicon-o-chevron-double-left class="w-5 h-5 text-primary-500 group-hover:text-white"/>
             </p>
         </div>
 
         {{-- Selected Options --}}
         <div class="flex-1">
             <p class="bg-gray-300 text-center w-full py-2 rounded-t-lg dark:bg-gray-600">{{$getSelectedLabel()}}</p>
-            <div class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+            <div
+                class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
                 @if($isSearchable())
                     <input
-                            id="ms_input-search-selected"
-                            placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.placeholder')}}"
-                            class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
-                            @keyup="searchSelectedOptions($event.target.value)"
+                        id="ms-two-sides_selectedOptionsSearchInput"
+                        placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.placeholder')}}"
+                        class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
+                        @keyup="searchSelectedOptions('ms-two-sides_selectedOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto">
-                    <template x-for="option in selectedOptions">
+                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectedOptions">
+                    @foreach($getSelectedOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
-                            x-text="options.find(opt=>opt.value === option).label"
-                            @click="unselectOption(option)"
-                        />
-                    </template>
+                            wire:click="dispatchFormEvent('ms-two-sides::unselectOption', '{{ $getStatePath() }}', '{{ $value }}')"
+                        >
+                            {{$label}}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
