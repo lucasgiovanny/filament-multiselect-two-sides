@@ -2,6 +2,7 @@
 
 namespace LucasGiovanny\FilamentMultiselectTwoSides\Forms\Components\Fields;
 
+use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Select;
 
 class MultiselectTwoSides extends Select
@@ -17,9 +18,17 @@ class MultiselectTwoSides extends Select
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->multiple();
         $this->setSelectableLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.label'));
         $this->setSelectedLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.label'));
+
+        $this->registerListeners([
+            'ms-two-sides::selectOption' => [fn (Component $component, string $statePath, string $value) => $this->selectOption($value)],
+            'ms-two-sides::unselectOption' => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
+            'ms-two-sides::selectAllOptions' => [fn (Component $component) => $this->selectAll()],
+            'ms-two-sides::unselectAllOptions' => [fn (Component $component) => $this->unselectAll()],
+        ]);
     }
 
     protected function setSelectableLabel(string $label): self
@@ -66,5 +75,42 @@ class MultiselectTwoSides extends Select
         $this->searchable = true;
 
         return $this;
+    }
+
+    public function getSelectableOptions(): array
+    {
+        return $options = collect($this->getOptions())
+            ->diff($this->getSelectedOptions())
+            ->toArray();
+    }
+
+    public function getSelectedOptions(?string $search = null): array
+    {
+        return collect($this->getOptions())
+            ->filter(fn (string $label, string $value) => in_array($value, $this->getState()))
+            ->toArray();
+    }
+
+    public function selectOption(string $value): void
+    {
+        $state = array_unique(array_merge($this->getState(), [$value]));
+        $this->state($state);
+    }
+
+    public function unselectOption(string $value): void
+    {
+        $state = $this->getState();
+        unset($state[array_search($value, $state)]);
+        $this->state($state);
+    }
+
+    public function selectAll(): void
+    {
+        $this->state(array_keys($this->getOptions()));
+    }
+
+    public function unselectAll(): void
+    {
+        $this->state([]);
     }
 }
