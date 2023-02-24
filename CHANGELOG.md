@@ -2,6 +2,10 @@
 
 All notable changes to `filament-multiselect-two-sides` will be documented in this file.
 
+## 1.1.1 - 2023-02-24
+
+* FIX: Add 'darkMode' to tailwind.config.js by @lucasgiovanny (6244a51a7c57fc00384cbabcf58e2821ee935fb2)
+
 ## 1.1.0 - 2023-02-24
 
 * Migrate logic livewire by @lucasgiovanny in https://github.com/lucasgiovanny/filament-multiselect-two-sides/pull/4
