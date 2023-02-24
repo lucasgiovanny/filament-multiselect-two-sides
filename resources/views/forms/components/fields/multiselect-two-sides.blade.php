@@ -14,9 +14,24 @@
     <div
         class="flex w-full transition duration-75 text-sm"
         x-data="{
-            availableOptions: @js($getSelectableOptions()),
+            options: @js($getOptionsForJs()),
             init(){
-                console.log(this.availableOptions)
+                let selectableOptionsSearchInput = document.getElementById('ms-two-sides_selectableOptionsSearchInput')
+                let selectedOptionsSearchInput = document.getElementById('ms-two-sides_selectedOptionsSearchInput')
+                if(selectableOptionsSearchInput && selectedOptionsSearchInput){
+                    selectableOptionsSearchInput.value = ''
+                    selectedOptionsSearchInput.value = ''
+                }
+            },
+            searchSelectedOptions(elementID, value){
+                let liList = document.querySelectorAll(`#${elementID} li`)
+                liList.forEach(li => {
+                    if(li.innerHTML.toLowerCase().includes(value.toLowerCase())){
+                        li.style.display = 'block'
+                    }else{
+                        li.style.display = 'none'
+                    }
+                })
             }
         }"
     >
@@ -27,11 +42,13 @@
                 class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
                 @if($isSearchable())
                     <input
+                        id="ms-two-sides_selectableOptionsSearchInput"
                         placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
                         class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
+                        @keyup="searchSelectedOptions('ms-two-sides_selectableOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto">
+                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectableOptions">
                     @foreach($getSelectableOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
@@ -67,13 +84,13 @@
                 class="p-2 border border-gray-300 bg-white rounded-b-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
                 @if($isSearchable())
                     <input
-                        id="ms_input-search-selected"
+                        id="ms-two-sides_selectedOptionsSearchInput"
                         placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.placeholder')}}"
                         class="w-full border-gray-300 border py-2 px-1 mb-2 rounded"
-                        @keyup="searchSelectedOptions($event.target.value)"
+                        @keyup="searchSelectedOptions('ms-two-sides_selectedOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto">
+                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectedOptions">
                     @foreach($getSelectedOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"

@@ -28,8 +28,6 @@ class MultiselectTwoSides extends Select
             'ms-two-sides::unselectOption' => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
             'ms-two-sides::selectAllOptions' => [fn (Component $component) => $this->selectAll()],
             'ms-two-sides::unselectAllOptions' => [fn (Component $component) => $this->unselectAll()],
-            'ms-two-sides::searchSelectable' => [fn (Component $component, string $statePath, string $value) => $this->setSelectableSearchWord($value)],
-            'ms-two-sides::searchSelected' => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
         ]);
     }
 
