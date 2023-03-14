@@ -24,11 +24,11 @@ class MultiselectTwoSides extends Select
         $this->setSelectedLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.label'));
 
         $this->registerListeners([
-            'ms-two-sides::selectOption' => [fn (Component $component, string $statePath, string $value) => $this->selectOption($value)],
-            'ms-two-sides::unselectOption' => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
-            'ms-two-sides::selectAllOptions' => [fn (Component $component) => $this->selectAll()],
-            'ms-two-sides::unselectAllOptions' => [fn (Component $component) => $this->unselectAll()],
-        ]);
+             'ms-two-sides::selectOption' => [fn (Component $component, string $statePath, string $value) => $statePath === $component->getStatePath() ? $this->selectOption($value) : null],
+             'ms-two-sides::unselectOption' => [fn (Component $component, string $statePath, string $value) => $statePath === $component->getStatePath() ? $this->unselectOption($value) : null],
+             'ms-two-sides::selectAllOptions' => [fn (Component $component, string $statePath) => $statePath === $component->getStatePath() ? $this->selectAll() : null],
+             'ms-two-sides::unselectAllOptions' => [fn (Component $component, string $statePath) => $statePath === $component->getStatePath() ? $this->unselectAll() : null],
+         ]);
     }
 
     protected function setSelectableLabel(string $label): self
