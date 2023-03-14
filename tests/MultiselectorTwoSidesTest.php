@@ -27,3 +27,26 @@ it('can set selected label', function () {
     expect($field->getSelectedLabel())
         ->toBe($newLabel);
 });
+
+it('can set id', function () {
+    $name = 'test-name';
+    $field = MultiselectTwoSides::make($name);
+
+    expect($field->getNameId())
+        ->toBe($name);
+});
+
+it('can set listeners', function () {
+    $name = 'test-name';
+    $field = MultiselectTwoSides::make($name);
+
+    $keys = [
+        "{$name}_ms-two-sides::selectOption",
+        "{$name}_ms-two-sides::unselectOption",
+        "{$name}_ms-two-sides::selectAllOptions",
+        "{$name}_ms-two-sides::unselectAllOptions",
+    ];
+
+    expect($field->getListeners())
+        ->toHaveKeys($keys);
+});
