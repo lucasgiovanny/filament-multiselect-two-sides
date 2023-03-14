@@ -27,7 +27,7 @@ class MultiselectTwoSides extends Select
     public static function make(string $name): static
     {
         $static = parent::make($name);
-        $id = $static->getName();
+        $id = $static->getNameId();
 
         $static->listeners = [
             "{$id}_ms-two-sides::selectOption" => [fn (Component $component, string $statePath, string $value) => $this->selectOption($value)],
