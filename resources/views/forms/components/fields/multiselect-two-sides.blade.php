@@ -17,8 +17,8 @@
         x-data="{
             options: @js($getOptionsForJs()),
             init(){
-                let selectableOptionsSearchInput = document.getElementById('ms-two-sides_selectableOptionsSearchInput')
-                let selectedOptionsSearchInput = document.getElementById('ms-two-sides_selectedOptionsSearchInput')
+                let selectableOptionsSearchInput = document.getElementById('{{$getNameId()}}_ms-two-sides_selectableOptionsSearchInput')
+                let selectedOptionsSearchInput = document.getElementById('{{$getNameId()}}_ms-two-sides_selectedOptionsSearchInput')
                 if(selectableOptionsSearchInput && selectedOptionsSearchInput){
                     selectableOptionsSearchInput.value = ''
                     selectedOptionsSearchInput.value = ''
@@ -57,8 +57,8 @@
                 {{-- Search Input --}}
                 @if($isSearchable())
                     <input
-                        id="ms-two-sides_selectableOptionsSearchInput"
-                        placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
+                        id="{{$getNameId()}}_ms-two-sides_selectableOptionsSearchInput"
+                        placeholder="Search"
                         class="w-full border-gray-300 border py-2 px-1 mb-2
                         rounded focus:outline-none focus:ring-2
                         focus:ring-primary-500"
@@ -66,14 +66,14 @@
                             'bg-gray-100': !@js(config('filament.dark_mode')),
                              'dark:bg-gray-600 dark:border-gray-500': @js(config('filament.dark_mode'))
                         }"
-                        @keyup="searchSelectedOptions('ms-two-sides_selectableOptions',$event.target.value)"
+                        @keyup="searchSelectedOptions('{{$getNameId()}}_ms-two-sides_selectableOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectableOptions">
+                <ul class="h-48 overflow-y-auto" id="{{$getNameId()}}_ms-two-sides_selectableOptions">
                     @foreach($getSelectableOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
-                            wire:click="dispatchFormEvent('ms-two-sides::selectOption', '{{ $getStatePath() }}', '{{ $value }}')"
+                            wire:click="dispatchFormEvent('{{$getNameId()}}_ms-two-sides::selectOption', '{{ $getStatePath() }}', '{{ $value }}')"
                         >
                             {{$label}}
                         </li>
@@ -85,13 +85,13 @@
         {{-- Arrow Actions --}}
         <div class="justify-center flex flex-col px-2 space-y-2 translate-y-4">
             <p
-                wire:click="dispatchFormEvent('ms-two-sides::selectAllOptions')"
+                wire:click="dispatchFormEvent('{{$getNameId()}}_ms-two-sides::selectAllOptions')"
                 class="cursor-pointer p-1 hover:bg-primary-500 group"
             >
                 <x-heroicon-o-chevron-double-right class="w-5 h-5 text-primary-500 group-hover:text-white"/>
             </p>
             <p
-                wire:click="dispatchFormEvent('ms-two-sides::unselectAllOptions')"
+                wire:click="dispatchFormEvent('{{$getNameId()}}_ms-two-sides::unselectAllOptions')"
                 class="cursor-pointer p-1 hover:bg-primary-500 group">
                 <x-heroicon-o-chevron-double-left class="w-5 h-5 text-primary-500 group-hover:text-white" />
             </p>
@@ -119,8 +119,8 @@
                 {{-- Search Input --}}
                 @if($isSearchable())
                     <input
-                        id="ms-two-sides_selectedOptionsSearchInput"
-                        placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.placeholder')}}"
+                        id="{{$getNameId()}}_ms-two-sides_selectedOptionsSearchInput"
+                        placeholder="Search"
                         class="w-full border-gray-300 border py-2 px-1 mb-2
                         rounded focus:outline-none focus:ring-2
                         focus:ring-primary-500"
@@ -128,15 +128,15 @@
                             'bg-gray-100': !@js(config('filament.dark_mode')),
                             'dark:bg-gray-600 dark:border-gray-500': @js(config('filament.dark_mode'))
                         }"
-                        @keyup="searchSelectedOptions('ms-two-sides_selectedOptions',$event.target.value)"
+                        @keyup="searchSelectedOptions('{{$getNameId()}}_ms-two-sides_selectedOptions',$event.target.value)"
                     />
                 @endif
                 {{--  Options List --}}
-                <ul class="h-48 overflow-y-auto" id="ms-two-sides_selectedOptions">
+                <ul class="h-48 overflow-y-auto" id="{{$getNameId()}}_ms-two-sides_selectedOptions">
                     @foreach($getSelectedOptions() as $value => $label)
                         <li
                             class="cursor-pointer p-1 hover:bg-primary-500 hover:text-white transition"
-                            wire:click="dispatchFormEvent('ms-two-sides::unselectOption', '{{ $getStatePath() }}', '{{ $value }}')"
+                            wire:click="dispatchFormEvent('{{$getNameId()}}_ms-two-sides::unselectOption', '{{ $getStatePath() }}', '{{ $value }}')"
                         >
                             {{$label}}
                         </li>

@@ -22,13 +22,25 @@ class MultiselectTwoSides extends Select
         $this->multiple();
         $this->setSelectableLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.label'));
         $this->setSelectedLabel(__('filament-multiselect-two-sides::filament-multiselect-two-sides.selected.label'));
+    }
 
-        $this->registerListeners([
-            'ms-two-sides::selectOption' => [fn (Component $component, string $statePath, string $value) => $this->selectOption($value)],
-            'ms-two-sides::unselectOption' => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
-            'ms-two-sides::selectAllOptions' => [fn (Component $component) => $this->selectAll()],
-            'ms-two-sides::unselectAllOptions' => [fn (Component $component) => $this->unselectAll()],
-        ]);
+    public static function make(string $name): static
+    {
+        $static = parent::make($name);
+        $id = $static->getName();
+
+        $static->listeners = [
+            "{$id}_ms-two-sides::selectOption" => [fn (Component $component, string $statePath, string $value) => $this->selectOption($value)],
+            "{$id}_ms-two-sides::unselectOption" => [fn (Component $component, string $statePath, string $value) => $this->unselectOption($value)],
+            "{$id}_ms-two-sides::selectAllOptions" => [fn (Component $component) => $this->selectAll()],
+            "{$id}_ms-two-sides::unselectAllOptions" => [fn (Component $component) => $this->unselectAll()],
+        ];
+
+        return $static;
+    }
+
+    public function getNameId() {
+        return strtolower($this->getName());
     }
 
     protected function setSelectableLabel(string $label): self
