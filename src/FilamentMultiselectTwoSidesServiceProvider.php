@@ -2,10 +2,10 @@
 
 namespace LucasGiovanny\FilamentMultiselectTwoSides;
 
-use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentMultiselectTwoSidesServiceProvider extends PluginServiceProvider
+class FilamentMultiselectTwoSidesServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'filament-multiselect-two-sides';
 
