@@ -37,19 +37,9 @@
         }"
     >
         {{-- Selectable Options --}}
-        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm"
-             :class="{
-            'bg-white border-gray-300': !@js(config('filament.dark_mode')),
-            'dark:bg-gray-700 dark:border-gray-600': @js(config('filament.dark_mode'))
-            }"
-        >
+        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600">
             {{-- Title --}}
-            <p class='text-center w-full py-4'
-               :class="{
-                'bg-gray-300': !@js(config('filament.dark_mode')),
-                'dark:bg-gray-600': @js(config('filament.dark_mode'))
-                }"
-            >
+            <p class="text-center w-full py-4 bg-gray-300 dark:bg-gray-600">
                 {{$getSelectableLabel()}}
             </p>
             <div
@@ -59,13 +49,7 @@
                     <input
                         id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectableOptionsSearchInput"
                         placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
-                        class="w-full border-gray-300 border py-2 px-1 mb-2
-                        rounded focus:outline-none focus:ring-2
-                        focus:ring-primary-500"
-                        :class="{
-                            'bg-gray-100': !@js(config('filament.dark_mode')),
-                             'dark:bg-gray-600 dark:border-gray-500': @js(config('filament.dark_mode'))
-                        }"
+                        class="w-full border-gray-300 border py-2 px-1 mb-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 bg-gray-100 dark:bg-gray-600 dark:border-gray-500"
                         @keyup="searchSelectedOptions('{{str($getStatePath())->remove('.')}}_ms-two-sides_selectableOptions',$event.target.value)"
                     />
                 @endif
@@ -101,19 +85,14 @@
         {{-- Selected Options --}}
         <div class="flex-1 border overflow-hidden rounded-lg shadow-sm"
              :class="{
-                    'bg-white border-gray-300': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                    'dark:bg-gray-700 dark:border-gray-600': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors) && @js(config('filament.dark_mode')),
-                    'bg-white border-danger-600': (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                    'dark:bg-gray-700 dark:border-danger-400': (@js($getStatePath()) in $wire.__instance.serverMemo.errors) && @js(config('filament.dark_mode')),
+                    'bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
+                    'bg-white border-danger-600 dark:bg-gray-700 dark:border-danger-400': (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
                 }"
         >
             {{-- Title --}}
-            <p class='text-center w-full py-4 rounded-t-lg'
-               :class="{
-                'bg-gray-300': !@js(config('filament.dark_mode')),
-                'dark:bg-gray-600': @js(config('filament.dark_mode'))
-                }"
-            >{{$getSelectedLabel()}}</p>
+            <p class='text-center w-full py-4 rounded-t-lg bg-gray-300 dark:bg-gray-600'>
+                {{$getSelectedLabel()}}
+            </p>
             <div
                 class="p-2"
             >
@@ -122,13 +101,7 @@
                     <input
                         id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectedOptionsSearchInput"
                         placeholder="{{__('filament-multiselect-two-sides::filament-multiselect-two-sides.selectable.placeholder')}}"
-                        class="w-full border-gray-300 border py-2 px-1 mb-2
-                        rounded focus:outline-none focus:ring-2
-                        focus:ring-primary-500"
-                        :class="{
-                            'bg-gray-100': !@js(config('filament.dark_mode')),
-                            'dark:bg-gray-600 dark:border-gray-500': @js(config('filament.dark_mode'))
-                        }"
+                        class="w-full border-gray-300 border py-2 px-1 mb-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 bg-gray-100 dark:bg-gray-600 dark:border-gray-500"
                         @keyup="searchSelectedOptions('{{str($getStatePath())->remove('.')}}_ms-two-sides_selectedOptions',$event.target.value)"
                     />
                 @endif
