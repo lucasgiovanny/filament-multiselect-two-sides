@@ -1,0 +1,27 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ "main"]
+
+jobs:
+  pest:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    name: Pest on PHP ${{ matrix.php }}
+    strategy:
+      fail-fast: true
+      matrix:
+        php: ["8.2"]
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Test PHP Code
+        run: vendor/bin/pest

@@ -1,0 +1,61 @@
+name: Code Analysis
+
+on:
+  pull_request:
+    branches: [ "main"]
+
+jobs:
+  code_analysis_composer:
+    timeout-minutes: 30
+    if: github.event_name == 'pull_request'
+    name: ${{ matrix.actions.name }} on PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["8.2"]
+
+        actions:
+          - name: Pint
+            run: "vendor/bin/pint --test"
+
+          - name: PHPStan
+            run: "vendor/bin/phpstan analyse --error-format=github"
+
+          - name : Composer validate
+            run : "composer validate"
+
+          - name : Check Composer dependency licenses
+            run: |
+              composer require dominikb/composer-license-checker --dev --no-scripts --ansi
+              IFS=$'\n'; for line in $(< .permitted-licenses); do echo "--allowlist=\"${line}\"" ;done  | xargs ./vendor/bin/composer-license-checker check --allow worksome
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          php-version: ${{ matrix.php }}
+          tools: composer:v2, cs2pr
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - run: ${{ matrix.actions.run }}
+
+  conform:
+    timeout-minutes: 30
+    if: github.event_name == 'pull_request' && github.head_ref != 'main' && !contains(github.event.pull_request.head.ref, 'dependabot')
+    name: Conform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Conform Action
+        uses: siderolabs/conform@v0.1.0-alpha.27
