@@ -5,6 +5,7 @@ updates:
     directory: /
     schedule:
       interval: weekly
+      day: "wednesday"
     commit-message:
       prefix: "ci(actions):"
   # Maintain dependencies for PHP packages
@@ -12,6 +13,7 @@ updates:
     directory: /
     schedule:
       interval: weekly
+      day: "wednesday"
     commit-message:
       prefix: "ci(php):"
       prefix-development: "ci(php-dev):"
@@ -35,6 +37,7 @@ updates:
     directory: /
     schedule:
       interval: weekly
+      day: "wednesday"
     commit-message:
       prefix: "ci(js):"
       prefix-development: "ci(js-dev):"
