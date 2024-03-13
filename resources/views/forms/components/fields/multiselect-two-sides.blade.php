@@ -53,7 +53,7 @@
                     />
                 @endif
                 <ul class="fi-input overflow-y-auto"
-                    style="max-height: 300px;"
+                    style="max-height: 300px; min-height: 300px"
                     id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectableOptions">
                     @foreach($getSelectableOptions() as $value => $label)
                         <li
@@ -100,7 +100,7 @@
                 @endif
                 {{--  Options List --}}
                 <ul class="overflow-y-auto"
-                    style="max-height: 300px;"
+                    style="max-height: 300px; min-height: 300px"
                     id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectedOptions">
                     @foreach($getSelectedOptions() as $value => $label)
                         <li
