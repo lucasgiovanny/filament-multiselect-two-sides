@@ -7,6 +7,10 @@
         "filament-multiselect-two-sides"
     ],
     "homepage": "https://github.com/lucasgiovanny/filament-multiselect-two-sides",
+    "support": {
+        "issues": "https://github.com/lucasgiovanny/filament-multiselect-two-sides/issues",
+        "source": "https://github.com/lucasgiovanny/filament-multiselect-two-sides"
+    },
     "license": "MIT",
     "authors": [
         {
@@ -23,20 +27,20 @@
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "spatie/laravel-package-tools": "^1.13.5",
-        "illuminate/contracts": "^9.0|^10.0|^11.0"
+        "filament/forms": "^3.0",
+        "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
-        "larastan/larastan": "^2.0",
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^6.0|^8.0",
-        "orchestra/testbench": "^7.0|^9.0",
-        "pestphp/pest": "^1.21|^2.34",
-        "pestphp/pest-plugin-laravel": "^1.1|^2.3",
-        "pestphp/pest-plugin-livewire": "^1.0|^2.1",
-        "pestphp/pest-plugin-parallel": "^0.3|^1.2",
-        "phpunit/phpunit": "^9.5|^10.5",
-        "spatie/laravel-ray": "^1.26"
+        "nunomaduro/collision": "^7.9",
+        "nunomaduro/larastan": "^2.0",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.1",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -58,7 +62,6 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
