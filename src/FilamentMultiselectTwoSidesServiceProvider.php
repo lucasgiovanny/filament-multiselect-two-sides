@@ -10,11 +10,11 @@ class FilamentMultiselectTwoSidesServiceProvider extends PackageServiceProvider
     public static string $name = 'filament-multiselect-two-sides';
 
     protected array $styles = [
-        'plugin-filament-multiselect-two-sides' => __DIR__.'/../resources/dist/filament-multiselect-two-sides.css',
+        'plugin-filament-multiselect-two-sides' => __DIR__ . '/../resources/dist/filament-multiselect-two-sides.css',
     ];
 
     protected array $scripts = [
-        'plugin-filament-multiselect-two-sides' => __DIR__.'/../resources/dist/filament-multiselect-two-sides.js',
+        'plugin-filament-multiselect-two-sides' => __DIR__ . '/../resources/dist/filament-multiselect-two-sides.js',
     ];
 
     public function configurePackage(Package $package): void

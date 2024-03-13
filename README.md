@@ -7,11 +7,11 @@
 This package is a Filament plugin that allows you to create a multiselect with 
 two sides.
 
-![Filament Multiselector Two Sides](multiselect.png)
+![Filament Multiselector Two Sides](art/multiselect.png)
 
 
 ### Example
-![Example of plugin](animate.gif)
+![Example of plugin](art/animate.gif)
 
 ## Installation
 
@@ -95,13 +95,7 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [Lucas Giovanny](https://github.com/lucasgiovanny)
-- [Léo França](https://github.com/leoarkiteto)
-- [All Contributors](../../contributors)
+Please review [our security policy](./.github/SECURITY.md) on how to report security vulnerabilities.
 
 ## License
 

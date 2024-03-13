@@ -11,7 +11,7 @@
     "authors": [
         {
             "name": "Lucas Giovanny",
-            "email": "lucas@vezoa.com",
+            "email": "lucasgiovanny@gmail.com",
             "role": "Developer"
         },
         {
@@ -27,6 +27,7 @@
         "illuminate/contracts": "^9.0|^10.0|^11.0"
     },
     "require-dev": {
+        "larastan/larastan": "^2.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^6.0|^8.0",
         "orchestra/testbench": "^7.0|^9.0",
@@ -39,8 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LucasGiovanny\\FilamentMultiselectTwoSides\\": "src",
-            "LucasGiovanny\\FilamentMultiselectTwoSides\\Database\\Factories\\": "database/factories"
+            "LucasGiovanny\\FilamentMultiselectTwoSides\\": "src"
         }
     },
     "autoload-dev": {
@@ -49,12 +49,11 @@
         }
     },
     "scripts": {
-        "pint": "vendor/bin/pint",
-        "test:pest": "vendor/bin/pest --parallel",
-        "test": [
-            "@test:pest",
-            "@test:phpstan"
-        ]
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,

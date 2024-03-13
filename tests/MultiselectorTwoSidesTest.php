@@ -4,7 +4,7 @@ use LucasGiovanny\FilamentMultiselectTwoSides\Forms\Components\Fields\Multiselec
 
 it('can enable search', function () {
     $field = MultiselectTwoSides::make('multi-select')
-                ->enableSearch();
+        ->enableSearch();
 
     expect($field->searchable)
         ->toBeTrue();
@@ -13,7 +13,7 @@ it('can enable search', function () {
 it('can set selectable label', function () {
     $newLabel = 'New label';
     $field = MultiselectTwoSides::make('multi-select')
-                ->selectableLabel($newLabel);
+        ->selectableLabel($newLabel);
 
     expect($field->getSelectableLabel())
         ->toBe($newLabel);
@@ -22,7 +22,7 @@ it('can set selectable label', function () {
 it('can set selected label', function () {
     $newLabel = 'New label';
     $field = MultiselectTwoSides::make('multi-select')
-                ->selectedLabel($newLabel);
+        ->selectedLabel($newLabel);
 
     expect($field->getSelectedLabel())
         ->toBe($newLabel);
