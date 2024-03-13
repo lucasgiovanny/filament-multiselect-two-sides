@@ -10,7 +10,6 @@
     :hint-icon="$getHintIcon()"
     :required="$isRequired()"
     :state-path="$getStatePath()"
-
 >
     <div
         class="flex w-full transition duration-75 text-sm"
@@ -37,9 +36,9 @@
         }"
     >
         {{-- Selectable Options --}}
-        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm bg-white border-gray-200 text-gray-950 transition duration-75 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
             {{-- Title --}}
-            <p class="text-center w-full py-4 bg-gray-300 dark:bg-gray-600">
+            <p class="text-center w-full py-4 bg-gray-200 dark:bg-gray-900">
                 {{$getSelectableLabel()}}
             </p>
             <div
@@ -53,7 +52,8 @@
                         @keyup="searchSelectedOptions('{{str($getStatePath())->remove('.')}}_ms-two-sides_selectableOptions',$event.target.value)"
                     />
                 @endif
-                <ul class="h-48 overflow-y-auto"
+                <ul class="fi-input overflow-y-auto"
+                    style="max-height: 300px;"
                     id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectableOptions">
                     @foreach($getSelectableOptions() as $value => $label)
                         <li
@@ -83,19 +83,12 @@
         </div>
 
         {{-- Selected Options --}}
-        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm"
-             :class="{
-                    'bg-white border-gray-300 dark:bg-gray-700 dark:border-gray-600': ! (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                    'bg-white border-danger-600 dark:bg-gray-700 dark:border-danger-400': (@js($getStatePath()) in $wire.__instance.serverMemo.errors),
-                }"
-        >
+        <div class="flex-1 border overflow-hidden rounded-lg shadow-sm bg-white border-gray-200 text-gray-950 transition duration-75 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
             {{-- Title --}}
-            <p class='text-center w-full py-4 rounded-t-lg bg-gray-300 dark:bg-gray-600'>
+            <p class='text-center w-full py-4 rounded-t-lg bg-gray-300 dark:bg-gray-900'>
                 {{$getSelectedLabel()}}
             </p>
-            <div
-                class="p-2"
-            >
+            <div class="p-2">
                 {{-- Search Input --}}
                 @if($isSearchable())
                     <input
@@ -106,7 +99,8 @@
                     />
                 @endif
                 {{--  Options List --}}
-                <ul class="h-48 overflow-y-auto"
+                <ul class="overflow-y-auto"
+                    style="max-height: 300px;"
                     id="{{str($getStatePath())->remove('.')}}_ms-two-sides_selectedOptions">
                     @foreach($getSelectedOptions() as $value => $label)
                         <li
